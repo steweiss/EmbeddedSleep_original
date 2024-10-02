@@ -38,8 +38,15 @@ runtime: shiny
 ## sudo apt-get install tk-dev
 ## sudo apt-get install fftw-dev
 ## sudo apt-get install libcgal-dev libglu1-mesa-dev libglu1-mesa-dev
+## sudo apt-get install libxml2
+## remotes::install_github("craddm/eegUtils")
+## reticulate::install_python(version = '3.12')
+##  install.packages('tinytex')
+##  tinytex::install_tinytex()
 
-reticulate::use_python(reticulate::py_config()[[1]],required = T)
+print("nere")
+
+reticulate::use_python(reticulate::py_discover_config()[[1]],required = T)
 library(reticulate)
 # mainDir<-getwd()
 # create_folder<-function(x)ifelse(!dir.exists(file.path(getwd(), x)), dir.create(file.path(getwd(), x)), FALSE)
@@ -47,6 +54,7 @@ library(reticulate)
 # create_folder('Report')
 # create_folder('Plots')
 # create_folder('EDF')
+print("gere")
 loadpackage<-function(x){
   for(i in x){
     if(!(i %in% rownames(installed.packages()))){
@@ -56,8 +64,9 @@ loadpackage<-function(x){
   }
 }
 ## Load install R packages
-loadpackage(c("plyr","dplyr","ggplot2","knitr","broom","ggfortify","kableExtra","xts","eegUtils","dlm","forecast","signal","rmarkdown","plotly","visNetwork","Rssa","RHRV","data.table","DT","shinyTime","shinyWidgets","dygraphs","ggplotify","cowplot","tidyr"))
+loadpackage(c("plyr","dplyr","ggplot2","knitr","broom","ggfortify","hms","kableExtra","xts","eegUtils","dlm","forecast","signal","rmarkdown","plotly","visNetwork","Rssa","RHRV","data.table","DT","shinyTime","shinyWidgets","dygraphs","ggplotify","cowplot","tidyr"))
 demoMode=F
+print("here")
 # set default code-chunk parameters
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, error = FALSE, 
                       fig.align = 'center', fig.pos = 'htbp', results = 'asis')
@@ -72,6 +81,7 @@ shiny_running = function()identical(rmarkdown::metadata$runtime, 'shiny')&output
 if(!shiny_running()){
   reactiveValues<-function(...)list(...)
 }
+print("bere")
 if(outputoption!="html"){
   if(outputoption!="latex"){
   mainDir<-getwd()
@@ -83,7 +93,8 @@ if(outputoption!="html"){
   }
 }else{
   if(outputoption=="html")
-    mainDir<-"/srv/shiny-server/Test/"
+    mainDir<-getwd()
+    #mainDir<-"/srv/shiny-server/Test/"
     #demoMode=T
     # mainDir<-"/home/sweiss/Mentalab/"
 }
@@ -91,6 +102,8 @@ if(outputoption!="html"){
 if(!shiny_running()){
   reactiveValues<-function(...)list(...)
 }
+print(mainDir)
+
 ```
 
 ```{r}
